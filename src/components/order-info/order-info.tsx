@@ -2,6 +2,8 @@ import { FC, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/services/store';
 
 export const OrderInfo: FC = () => {
   /** TODO: взять переменные orderData и ingredients из стора */
@@ -14,6 +16,8 @@ export const OrderInfo: FC = () => {
     updatedAt: 'string',
     number: 0
   };
+
+  // const orderData = useSelector((state: RootState) => state.orders.currentOrder);
 
   const ingredients: TIngredient[] = [];
 
