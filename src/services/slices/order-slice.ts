@@ -40,11 +40,16 @@ export const orderSlice = createSlice({
     addIngredient: (state, action: PayloadAction<TConstructorIngredient>) => {
       state.constructorItems.ingredients.push(action.payload);
     },
-    removeIngredient: (state, action: PayloadAction<string>) => {
-      state.constructorItems.ingredients =
-        state.constructorItems.ingredients.filter(
-          (item) => item._id !== action.payload
-        );
+    removeIngredient: (state, action: PayloadAction<number>) => {
+      state.constructorItems.ingredients.splice(action.payload, 1);
+    },
+    moveIngredient: (
+      state,
+      action: PayloadAction<{ fromIndex: number; toIndex: number }>
+    ) => {
+      const { fromIndex, toIndex } = action.payload;
+      const [moved] = state.constructorItems.ingredients.splice(fromIndex, 1);
+      state.constructorItems.ingredients.splice(toIndex, 0, moved);
     },
     clearConstructor: (state) => {
       state.constructorItems = { bun: null, ingredients: [] };
@@ -76,6 +81,7 @@ export const {
   setBun,
   addIngredient,
   removeIngredient,
+  moveIngredient,
   clearConstructor,
   closeOrder
 } = orderSlice.actions;

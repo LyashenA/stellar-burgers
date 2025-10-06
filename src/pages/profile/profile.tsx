@@ -1,10 +1,12 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
-import { useSelector } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
+import { updateUser } from '../../services/slices/user-slice';
+import { Preloader } from '@ui';
 
 export const Profile: FC = () => {
-  /** TODO: взять переменную из стора */
-  const user = useSelector((store) => store.user.user);
+  const dispatch = useDispatch();
+  const { user, loading } = useSelector((store) => store.user);
 
   const [formValue, setFormValue] = useState({
     name: user?.name || '',
@@ -16,7 +18,8 @@ export const Profile: FC = () => {
     setFormValue((prevState) => ({
       ...prevState,
       name: user?.name || '',
-      email: user?.email || ''
+      email: user?.email || '',
+      password: ''
     }));
   }, [user]);
 
@@ -27,6 +30,8 @@ export const Profile: FC = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
+
+    dispatch(updateUser(formValue));
   };
 
   const handleCancel = (e: SyntheticEvent) => {
@@ -39,11 +44,21 @@ export const Profile: FC = () => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormValue((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value
-    }));
+    const { name, value } = e.target;
+
+    setFormValue((prevState) => {
+      if (prevState[name as keyof typeof prevState] === value) {
+        return prevState;
+      }
+
+      return {
+        ...prevState,
+        [name]: value
+      };
+    });
   };
+
+  if (loading) return <Preloader />;
 
   return (
     <ProfileUI

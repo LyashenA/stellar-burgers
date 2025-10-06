@@ -39,7 +39,7 @@ const App = () => {
     } else {
       dispatch(setAuthChecked(true));
     }
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className={styles.app}>
@@ -66,7 +66,7 @@ const App = () => {
         <Route
           path='/forgot-password'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <ForgotPassword />
             </ProtectedRoute>
           }
@@ -74,7 +74,7 @@ const App = () => {
         <Route
           path='/reset-password'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <ResetPassword />
             </ProtectedRoute>
           }
@@ -99,7 +99,7 @@ const App = () => {
         <Route
           path='/feed/:number'
           element={
-            <Modal title='' onClose={() => {}}>
+            <Modal title='' onClose={handleClose}>
               <OrderInfo />
             </Modal>
           }
@@ -116,7 +116,7 @@ const App = () => {
           path='/profile/orders/:number'
           element={
             <ProtectedRoute>
-              <Modal title='' onClose={() => {}}>
+              <Modal title='' onClose={handleClose}>
                 <OrderInfo />
               </Modal>
             </ProtectedRoute>

@@ -4,8 +4,7 @@ import {
   loginUserApi,
   getUserApi,
   updateUserApi,
-  logoutApi,
-  refreshToken
+  logoutApi
 } from '../../utils/burger-api';
 import { TUser } from '../../utils/types';
 
