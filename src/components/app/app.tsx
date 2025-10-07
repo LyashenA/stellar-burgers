@@ -11,7 +11,7 @@ import {
 } from '@pages';
 import '../../index.css';
 import styles from './app.module.css';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { ProtectedRoute } from '../protected-route/ProtectedRoute';
@@ -20,15 +20,21 @@ import { useEffect } from 'react';
 import { fetchIngredients } from '../../services/slices/ingredients-slice';
 import { getUser, setAuthChecked } from '../../services/slices/user-slice';
 import { getCookie } from '../../utils/cookie';
+import { fetchFeeds } from '../../services/slices/feed-slice';
 
 const App = () => {
   const navigate = useNavigate();
   const handleClose = () => navigate(-1);
 
+  const location = useLocation();
+  const locationState = location.state as { background?: Location };
+  const background = locationState && locationState.background;
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchIngredients());
+    dispatch(fetchFeeds());
 
     const accessToken = getCookie('accessToken');
 
@@ -44,7 +50,7 @@ const App = () => {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes>
+      <Routes location={background || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
         <Route
@@ -123,6 +129,36 @@ const App = () => {
           }
         />
       </Routes>
+      {background && (
+        <Routes>
+          <Route
+            path='/feed/:number'
+            element={
+              <Modal title='' onClose={handleClose}>
+                <OrderInfo />
+              </Modal>
+            }
+          />
+          <Route
+            path='/ingredients/:id'
+            element={
+              <Modal title='' onClose={handleClose}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path='/profile/orders/:number'
+            element={
+              <ProtectedRoute>
+                <Modal title='' onClose={handleClose}>
+                  <OrderInfo />
+                </Modal>
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      )}
     </div>
   );
 };
