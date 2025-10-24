@@ -83,7 +83,9 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    clean: true, // очищает папку перед сборкой
+    publicPath: process.env.NODE_ENV === 'production' ? '/stellar-burgers/' : '/', // важно для корректной работы GitHub Pages
   },
   devServer: {
     static: path.join(__dirname, './dist'),
