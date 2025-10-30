@@ -9,6 +9,7 @@ import { FC } from 'react';
 
 export const ConstructorPage: FC = () => {
   const { loading } = useSelector((state) => state.ingredients);
+  const ingredientsData = useSelector((state) => state.ingredients);
   const isIngredientsLoading = loading;
 
   return (

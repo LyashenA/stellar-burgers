@@ -6,13 +6,13 @@ import {
   useSelector as selectorHook
 } from 'react-redux';
 
-import ingredientsReducer from './slices/ingredients-slice';
-import orderReducer from './slices/order-slice';
-import feedReducer from './slices/feed-slice';
-import userReducer from './slices/user-slice';
-import userOrdersReducer from './slices/user-orders-slice';
+import ingredientsReducer from './slices/ingredients-slice/ingredients-slice';
+import orderReducer from './slices/order-slice/order-slice';
+import feedReducer from './slices/feed-slice/feed-slice';
+import userReducer from './slices/user-slice/user-slice';
+import userOrdersReducer from './slices/user-orders-slice/user-orders-slice';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   order: orderReducer,
   feed: feedReducer,

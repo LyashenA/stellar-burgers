@@ -5,8 +5,8 @@ import {
   getUserApi,
   updateUserApi,
   logoutApi
-} from '../../utils/burger-api';
-import { TUser } from '../../utils/types';
+} from '../../../utils/burger-api';
+import { TUser } from '../../../utils/types';
 
 type UserState = {
   user: TUser | null;

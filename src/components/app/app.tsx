@@ -17,10 +17,13 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { ProtectedRoute } from '../protected-route/ProtectedRoute';
 import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
-import { fetchIngredients } from '../../services/slices/ingredients-slice';
-import { getUser, setAuthChecked } from '../../services/slices/user-slice';
+import { fetchIngredients } from '../../services/slices/ingredients-slice/ingredients-slice';
+import {
+  getUser,
+  setAuthChecked
+} from '../../services/slices/user-slice/user-slice';
 import { getCookie } from '../../utils/cookie';
-import { fetchFeeds } from '../../services/slices/feed-slice';
+import { fetchFeeds } from '../../services/slices/feed-slice/feed-slice';
 
 const App = () => {
   const navigate = useNavigate();
@@ -39,9 +42,7 @@ const App = () => {
     const accessToken = getCookie('accessToken');
 
     if (accessToken) {
-      dispatch(getUser()).finally(() => {
-        dispatch(setAuthChecked(true));
-      });
+      dispatch(getUser());
     } else {
       dispatch(setAuthChecked(true));
     }

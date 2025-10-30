@@ -22,7 +22,6 @@ export const ResetPassword: FC = () => {
   };
 
   useEffect(() => {
-    console.log('Это страница восстановления пароля');
     if (!localStorage.getItem('resetPassword')) {
       navigate('/forgot-password', { replace: true });
     }
