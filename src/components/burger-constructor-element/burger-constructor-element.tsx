@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from '../../services/store';
 import {
   moveIngredient,
   removeIngredient
-} from '../../services/slices/order-slice';
+} from '../../services/slices/order-slice/order-slice';
 
 export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
   ({ ingredient, index, totalItems }) => {
@@ -38,6 +38,7 @@ export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
         handleMoveUp={handleMoveUp}
         handleMoveDown={handleMoveDown}
         handleClose={handleClose}
+        data-cy={`constructor-element-${ingredient._id}`}
       />
     );
   }

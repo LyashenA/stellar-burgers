@@ -5,7 +5,7 @@ import { TIngredient } from '@utils-types';
 import { useDispatch, useSelector } from '../../services/store';
 import { useParams } from 'react-router-dom';
 import { ordersInfoDataSelector } from '../../services/selectors/orders';
-import { getOrderByNumber } from '../../services/slices/order-slice';
+import { getOrderByNumber } from '../../services/slices/order-slice/order-slice';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams();
@@ -67,7 +67,6 @@ export const OrderInfo: FC = () => {
   }, [dispatch, number]);
 
   if (loading || !orderInfo) {
-    console.log(orderData);
     return <Preloader />;
   }
 

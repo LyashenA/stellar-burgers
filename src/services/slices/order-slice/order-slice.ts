@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
-import { getOrderByNumberApi, orderBurgerApi } from '../../utils/burger-api';
+import { getOrderByNumberApi, orderBurgerApi } from '../../../utils/burger-api';
 
 interface OrderState {
   constructorItems: {
@@ -13,7 +13,7 @@ interface OrderState {
   currentOrder: TOrder | null;
 }
 
-const initialState: OrderState = {
+export const initialState: OrderState = {
   constructorItems: {
     bun: null,
     ingredients: []
@@ -36,7 +36,6 @@ export const getOrderByNumber = createAsyncThunk(
   'order/getOrderByNumber',
   async (number: number) => {
     const res = await getOrderByNumberApi(number);
-    console.log(res);
     return res.orders[0];
   }
 );
