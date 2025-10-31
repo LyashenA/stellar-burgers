@@ -1,5 +1,4 @@
-import { addIngredient, moveIngredient, removeIngredient } from './order-slice';
-import orderSliceReducer from './order-slice';
+import orderSliceReducer, { addIngredient, moveIngredient, removeIngredient } from './order-slice';
 import { bun, salad, cheese, meat } from './fixtures/ingredients';
 
 describe('тесты синхронных экшенов', () => {

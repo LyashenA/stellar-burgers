@@ -1,13 +1,10 @@
-import userOrdersReducer, { fetchUserOrders } from './user-orders-slice';
+import userOrdersReducer, {
+  fetchUserOrders,
+  initialState
+} from './user-orders-slice';
 import userOrdersData from './fixtures/userOrdersData';
 
 describe('тесты редьюсера userOrders', () => {
-  const initialState = {
-    orders: [],
-    loading: false,
-    error: null
-  };
-
   test('должен обрабатывать fetchUserOrders.pending', () => {
     const newState = userOrdersReducer(
       initialState,

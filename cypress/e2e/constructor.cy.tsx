@@ -1,6 +1,9 @@
 import mockIngredients from '../fixtures/ingredients.json';
 
 describe('Тесты конструктора бургера', () => {
+  // Модальное окно
+  // const modal = '#modals';
+
   beforeEach(() => {
     // Перехватываем запрос к API ингредиентов и возвращаем мок
     cy.intercept('GET', '/api/ingredients', { fixture: 'ingredients.json' }).as(
@@ -8,9 +11,12 @@ describe('Тесты конструктора бургера', () => {
     );
 
     // Заходим на страницу конструктора
-    cy.visit('http://localhost:4000');
+    cy.visit('');
 
     cy.wait('@getIngredients');
+
+    // Находим модальное окно
+    cy.get('#modals').as('modal');
   });
 
   it('должен отображать список ингредиентов', () => {
@@ -54,15 +60,15 @@ describe('Тесты конструктора бургера', () => {
     cy.get(`[data-cy="${ingredientId}"]`).find('a').click();
 
     // Проверяем, что модалка открылась
-    cy.get('#modals').within(() => {
+    cy.get('@modal').within(() => {
       cy.contains('Биокотлета из марсианской Магнолии').should('exist');
     });
 
     // Закрытие по клику на крестик
-    cy.get('#modals').find('button').click();
+    cy.get('@modal').find('button').click();
 
     // Проверяем, что модалка закрылась
-    cy.get('#modals').should('be.empty');
+    cy.get('@modal').should('be.empty');
   });
 
   it('открытие модального окна ингредиента и закрытие по клику на оверлей', () => {
@@ -72,7 +78,7 @@ describe('Тесты конструктора бургера', () => {
     cy.get(`[data-cy="${ingredientId}"]`).find('a').click();
 
     // Проверяем, что модалка открылась
-    cy.get('#modals').within(() => {
+    cy.get('@modal').within(() => {
       cy.contains('Биокотлета из марсианской Магнолии').should('exist');
     });
 
@@ -80,7 +86,7 @@ describe('Тесты конструктора бургера', () => {
     cy.get('[data-cy=modal-overlay]').click({ force: true });
 
     // Проверяем, что модалка закрылась
-    cy.get('#modals').should('be.empty');
+    cy.get('@modal').should('be.empty');
   });
 
   it('создание заказа', () => {
@@ -98,7 +104,7 @@ describe('Тесты конструктора бургера', () => {
       'createOrder'
     );
 
-    cy.visit('http://localhost:4000');
+    cy.visit('');
     cy.wait('@getUser');
 
     // Находим ингредиенты и добавляем их в конструктор
@@ -116,15 +122,15 @@ describe('Тесты конструктора бургера', () => {
     cy.get('button').contains('Оформить заказ').click();
 
     // Проверяем, что модалка открылась
-    cy.get('#modals').within(() => {
+    cy.get('@modal').within(() => {
       cy.contains('92361').should('exist');
     });
 
     // Закрытие по клику на крестик
-    cy.get('#modals').find('button').click();
+    cy.get('@modal').find('button').click();
 
     // Проверяем, что модалка закрылась
-    cy.get('#modals').should('be.empty');
+    cy.get('@modal').should('be.empty');
 
     // Проверяем, что цена заказа = 0. Это значит, что конструктор пуст
     cy.get('[data-cy=order-price]').should('have.text', '0');

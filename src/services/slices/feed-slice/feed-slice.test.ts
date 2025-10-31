@@ -1,15 +1,7 @@
-import feedReducer, { fetchFeeds } from './feed-slice';
+import feedReducer, { fetchFeeds, initialState } from './feed-slice';
 import orderFeed from './fixtures/orderFeed';
 
 describe('тесты редьюсера feed', () => {
-  const initialState = {
-    orders: [],
-    total: 0,
-    totalToday: 0,
-    loading: false,
-    error: null
-  };
-
   test('должен обрабатывать fetchFeeds.pending', () => {
     const newState = feedReducer(
       initialState,

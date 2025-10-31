@@ -3,16 +3,11 @@ import userReducer, {
   login,
   logout,
   register,
-  updateUser
+  updateUser,
+  initialState
 } from './user-slice';
 
 describe('тесты редьюсера user', () => {
-  const initialState = {
-    user: null,
-    isAuthChecked: false,
-    loading: false,
-    error: null
-  };
   const user = { email: 'test@mail.com', name: 'Test' };
 
   // Тесты асинхронного экшена register

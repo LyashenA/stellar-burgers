@@ -1,13 +1,10 @@
-import ingredientsReducer, { fetchIngredients } from './ingredients-slice';
+import ingredientsReducer, {
+  fetchIngredients,
+  initialState
+} from './ingredients-slice';
 import ingredientsData from '../../../../cypress/fixtures/ingredients.json';
 
 describe('тесты редьюсера ingredients', () => {
-  const initialState = {
-    items: [],
-    loading: false,
-    error: null
-  };
-
   test('должен обрабатывать fetchIngredients.pending', () => {
     const newState = ingredientsReducer(
       initialState,
